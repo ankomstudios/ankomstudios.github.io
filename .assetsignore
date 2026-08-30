@@ -1,0 +1,6 @@
+.git
+.github
+.gitignore
+wrangler.jsonc
+.assetsignore
+Screenshot*.png
