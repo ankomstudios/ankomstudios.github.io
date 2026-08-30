@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Animated sprite editor &amp; pixel art tool">
+    <meta name="author" content="Igara Studio S.A.">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ankom Studios" />
+    <meta property="og:description" content="Animated sprite editor &amp; pixel art tool" />
+    <meta property="og:image" content="https://ankomstudios.com/assets/images/og-image.png" />
+    <meta property="og:url" content="https://ankomstudios.com">
+
+    <title>Ankom Studios | Home </title>
+    <link rel="shortcut icon" href="/assets/images/lightFav.png">
+
+    <link rel="preload" as="image" href="assets/images/paralaxBg.png" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400&family=Pirata+One&display=swap" rel="stylesheet">
+
+    <link href="assets/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/css/solid.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/main.css?v=41" rel="stylesheet">
+    <script>
+      // Set the theme class immediately (before paint) so the
+      // paper-edge graphics don't flash the wrong color on load.
+      // favicon-theme.js keeps this in sync afterwards.
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('theme-dark');
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
+          <a class="navbar-brand" href="/" title="Home"><img id="navLogo" src="assets/images/logoPixel.png" alt="Ankom Studios"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="docs-button ">
+              <a href="/docs/"><i class="sprite sprite-docs"></i>&nbsp;Docs</a></li>
+            <li><a href="https://github.com/ankomstudios/ankomstudios/blob/master/CONTRIBUTING.md">&nbsp;Contribute</a></li>
+            <li><a href="https://community.ankomstudios.com/"><i class="sprite sprite-community"></i>&nbsp;Socials</a></li>
+            <li><a href="/support/"><i class="sprite sprite-support"></i>&nbsp;Support</a></li>
+            <li><a href="https://blog.ankomstudios.com/"><i class="sprite sprite-blog"></i>&nbsp;News</a></li>
+            <li><button type="button" class="auth-nav-btn" id="authOpenBtn" data-auth-open>
+                  <i class="sprite sprite-user"></i>&nbsp;Sign Up / Log In</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div class="top-shadow"></div>
+<div class="header">
+  <div class="header-inner">
+	<div class="container">
+	  <div class="header-logo-wrap" id="headerLogoWrap">
+	    <img class="header-logo" style="width:auto; height:110%;" src="assets/images/header-logo.png" alt="Ankom Studios">
+	  </div>
+	</div>
+  </div>
+</div>
+
+<div id="content-wrapper">
+<div class="paper-end paper-end-top"></div>
+<div id="content">
+
+<img
+  src="assets/images/text/VersionTrailerText.png"
+  alt="VersionTrailerText"
+  class="version-trailer-text"
+/>
+
+<div class="version-previews">
+
+  <div class="version-preview">
+    <iframe
+      width="853"
+      height="480"
+      src="https://www.youtube.com/embed/CKHagS16WW0?si=TN1jc6oezFWU7R43"
+      title="WannaSmile V0.9 — The 4Ever Update"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+
+    <div class="version-buttons">
+      <a href="/buy/#windows" class="btn main-buy-button os-download-btn">
+        <img class="os-logo" src="assets/images/windows-logo.png" alt="Windows">
+        <span class="os-button-text">
+          <span class="os-name">Windows</span>
+          <span class="os-version">v0.9</span>
+        </span>
+      </a>
+
+      <a href="/buy/#linux" class="btn main-buy-button os-download-btn">
+        <img class="os-logo" src="assets/images/linux-logo.png" alt="Linux">
+        <span class="os-button-text">
+          <span class="os-name">Linux</span>
+          <span class="os-version">v0.9</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Hidden for now — no domain live yet and no merch actually for sale.
+     Re-enable once both are real. -->
+<!--
+<img
+  src="assets/images/text/AboutAnkomStudios.png"
+  alt="AboutAnkomStudios"
+  class="aboutAnkom-text"
+/>
+
+<div class="container marketing">
+<div class="row">
+
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Merch</h2>
+	<div class="featurette-image-placeholder merch-carousel" id="merchCarousel">
+	  <div class="merch-carousel-track">
+		<img class="featurette-image merch-carousel-img is-active" src="assets/images/placeholders/bracelet1.jpg" loading="lazy" alt="Merch preview: bracelet">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/bracelet2.jpg" loading="lazy" alt="Merch preview: bracelet">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/burshka1.jpg" loading="lazy" alt="Merch preview: burshka">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/pants1.jpg" loading="lazy" alt="Merch preview: pants">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/pants2.jpg" loading="lazy" alt="Merch preview: pants">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/pants3.jpg" loading="lazy" alt="Merch preview: pants">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/pants4.jpg" loading="lazy" alt="Merch preview: pants">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/sweater1.jpg" loading="lazy" alt="Merch preview: sweater">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/sweater2.jpg" loading="lazy" alt="Merch preview: sweater">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/sweater3.jpg" loading="lazy" alt="Merch preview: sweater">
+		<img class="featurette-image merch-carousel-img" src="assets/images/placeholders/sweater4.jpg" loading="lazy" alt="Merch preview: sweater">
+	  </div>
+	  <button type="button" class="merch-carousel-btn merch-carousel-prev" aria-label="Previous merch image">&#10094;</button>
+	  <button type="button" class="merch-carousel-btn merch-carousel-next" aria-label="Next merch image">&#10095;</button>
+	</div>
+	<p>Ankom Studios has a wide Variety of <a href="/store/merch/shirts/">Shirts</a>, <a href="/store/merch/pants/">Pants</a>, And other Stylish <a href="/store/merch/accessories/">Accessories</a>, designed for The few that appreciate unique and high-quality clothing/designs.</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Ideology</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/featurettes/ideology.png" loading="lazy"></div>
+	<p>Ankom Studios is driven by a unique ideology that values creativity, quality, and innovation in all our projects.</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Partners</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/featurettes/partners.png" loading="lazy"></div>
+	<p>Our partners collaborate with us to bring innovative and high-quality products to our audience.</p>
+  </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Members</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/playback-modes.gif" loading="lazy"></div>
+	<p>Our members are the backbone of Ankom Studios, Donate to become a member of Ankom Studios. Youll recieve new updates, exclusive content, and the opportunity to actively participate in our creative projects.</p>
+	<p>Membership is a way to support our work and stay connected with the latest developments at Ankom Studios.</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Users</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/onion-skin.gif" loading="lazy"></div>
+	<p>Our users engage with our products and provide valuable feedback to help us improve.</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Founder</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/red-blue.gif" loading="lazy"></div>
+	<p>The founder of Ankom Studios leads the vision and direction of our creative endeavors. Mcmatty Obriore, also known as Rhap5ody/r5dothat$hit! leads more than just AnkomStudios, ThawDaBase, And WannaSmile. Syndicate & the Factionist Revolution is not only backed but also lead by Mcmatty Obriore.</p>
+  </div>
+
+</div>
+</div>
+
+<div class="film-decorator"></div>
+
+<h1 class="features">
+</h1>
+<div class="film-decorator"></div>
+-->
+
+<img
+  src="assets/images/text/AboutWannaSmile.png"
+  alt="AboutWannaSmile"
+  class="about-text"
+/>
+
+<div class="container marketing">
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Creation</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/palette-control.gif" loading="lazy"></div>
+	<p>WannaSmile was Created in September 2025. and the latest version is available at <a href="/home/">Ankom Studios</a>!</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Purpose & Use</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/control-alpha.gif" loading="lazy"></div>
+	<p>The purpose of WannaSmile is to provide a distributor network for assets in a expressive web service environment. Usage of WannaSmile includes browsing the catalogue, Exploring projects, And reviewing based on user experience.</p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2>Version History</h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/color-wheel.gif" loading="lazy"></div>
+	<p>Wannasmile has undergone several updates since its creation, with each version bringing new features and improvements to enhance the user experience.</p>
+  </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+
+</div>
+</div>
+
+<!-- Hidden for now — ThawDaBase doesn't exist yet, it's a future project.
+     Re-enable once there's something to actually show here. -->
+<!--
+<div class="film-decorator"></div>
+
+<h1 class="features">
+</h1>
+<div class="film-decorator"></div>
+
+<img
+  src="assets/images/text/AboutThawDaBase.png"
+  alt="AboutThawDaBase"
+  class="about-text"
+/>
+
+<div class="container marketing">
+<div class="row">
+
+   <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+	<h2></h2>
+	<div class="featurette-image-placeholder"><img class="featurette-image img-responsive" src="assets/images/shading-mode.gif" loading="lazy"></div>
+	<p></p>
+  </div>
+
+</div>
+</div>
+-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="text-align:center;">
+      <a href="/buy/" class="btn main-buy-button" style="width:260px;"><span>Explore Now</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="paper-end paper-end-bottom"></div>
+</div>
+</div>
+    <div class="film-decorator"></div>
+    <div id="footer">
+    <div class="container">
+
+      <div class="row">
+		<div class="col-xs-offset-0 col-xs-6 col-sm-offset-0 col-sm-4 col-md-offset-1 col-md-2">
+		  <h4>Links</h4>
+		  <ul>
+			<li><a href="/">Home</a>
+			<li><a href="https://github.com/ankomstudios/ankomstudios/issues">Known Issues</a>
+			<li><a href="https://github.com/ankomstudios/ankomstudios/issues/new">Bug Report</a>
+			<li><a href="/contributors/">Contributors</a>
+			<li><a href="/donate/">Donations</a>
+		  </ul>
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2">
+		  <h4>Community</h4>
+		  <ul>
+			<li><a href="https://community.ankomstudios.org/"><i class="fab fa-discourse"></i> Aseprite Community</a>
+			<li><a href="https://discord.gg/Yb2CeX8"><i class="fab fa-discord"></i> Discord Server</a>
+			<li><a href="https://steamcommunity.com/app/431730"><i class="fab fa-steam"></i> Steam Community</a>
+			<li><a href="https://www.reddit.com/r/ankomstudios/"><i class="fab fa-reddit"></i> /r/aseprite</a>
+		  </ul>
+		</div>
+		<div class="col-xs-6 col-sm-4 col-md-2">
+		  <h4>Documentation</h4>
+		  <ul>
+			<li><a href="/quickref/">Quick reference</a></li>
+			<li><a href="/docs/">Docs</a> - <a href="/faq/">FAQ</a></li>
+			<li><a href="/tutorial/">Tutorial</a></li>
+			<li><a href="http://blog.ankomstudios.org/">Blog</a></li>
+		  </ul>
+		</div>
+		<div class="col-xs-offset-0 col-xs-6 col-sm-offset-3 col-sm-3 col-md-offset-0 col-md-2">
+		  <h4>Development</h4>
+		  <ul>
+			<li><a href="https://github.com/ankomstudios/ankomstudios/"><i class="fab fa-github"></i> GitHub</a></li>
+			<li><a href="https://dev.ankomstudios.org/">Devblog</a></li>
+			<li><a href="/roadmap/">Roadmap</a></li>
+			<li><a href="https://github.com/ankomstudios/ankomstudios/blob/master/CONTRIBUTING.md">Contribute</a></li>
+		  </ul>
+		</div>
+		<div class="col-xs-offset-4 col-xs-6 col-sm-offset-0 col-sm-3 col-md-offset-0 col-md-2">
+		  <h4>Social</h4>
+		  <ul>
+			<li><a href="https://twitter.com/ankomstudios/"><i class="fab fa-twitter"></i> Twitter</a>
+			<li><a href="https://mastodon.art/@ankomstudios" rel="me"><i class="fab fa-mastodon"></i> Mastodon</a>
+			<li><a href="https://www.facebook.com/ankomstudios"><i class="fab fa-facebook"></i> Facebook</a>
+			<li><a href="https://www.youtube.com/user/ankomstudios"><i class="fab fa-youtube"></i> YouTube</a>
+			<li><a href="https://www.instagram.com/ankomstudios/"><i class="fab fa-instagram"></i> Instagram</a>
+		  </ul>
+		</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p class="very-bottom">
+&copy; 2001&dash;2026
+<a href="https://ankomstudios.com/">Ankom Studios</a> <span>|</span>
+<a href="https://ankomstudios.com/terms/">Terms of Service</a> <span>|</span>
+<a href="https://ankomstudios.com/privacy/">Privacy</a> <span>|</span>
+<a href="https://ankomstudios.com/support/">Support</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    </div> <!-- /#footer -->
+
+    <div class="auth-overlay" id="authOverlay" data-auth-close hidden>
+      <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+        <button type="button" class="auth-close" data-auth-close aria-label="Close">&times;</button>
+        <h2 class="auth-title" id="authModalTitle">Sign Up</h2>
+
+        <div class="auth-col" id="authSignupView">
+          <form id="authSignupForm" class="auth-form">
+            <label for="authSignupEmail">email:</label>
+            <input type="email" id="authSignupEmail" name="email" autocomplete="email">
+
+            <label for="authSignupPassword">Strong Password:</label>
+            <input type="password" id="authSignupPassword" name="password" autocomplete="new-password">
+
+            <button type="submit" class="auth-submit">Sign Up</button>
+          </form>
+          <p class="auth-switch">Already have an account? <a href="#" data-auth-switch="login">Log in</a></p>
+        </div>
+
+        <div class="auth-col" id="authLoginView" hidden>
+          <form id="authLoginForm" class="auth-form">
+            <label for="authLoginEmail">email:</label>
+            <input type="email" id="authLoginEmail" name="email" autocomplete="email">
+
+            <label for="authLoginPassword">password:</label>
+            <div class="auth-password-row">
+              <input type="password" id="authLoginPassword" name="password" autocomplete="current-password">
+              <button type="button" class="auth-eye-toggle" data-auth-toggle-pw="authLoginPassword" aria-label="Show password">
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" fill="none" stroke="#000" stroke-width="1.6"/>
+                  <circle cx="12" cy="12" r="3.2" fill="none" stroke="#000" stroke-width="1.6"/>
+                </svg>
+              </button>
+            </div>
+
+            <button type="submit" class="auth-submit">Log In</button>
+          </form>
+          <p class="auth-switch">Need an account? <a href="#" data-auth-switch="signup">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="assets/js/supabase-client.js"></script>
+
+    <script src="assets/js/favicon-theme.js"></script>
+    <script src="assets/js/logo-tilt.js"></script>
+    <script src="assets/js/logo-hover-swap.js"></script>
+    <script src="assets/js/paper-parallax.js"></script>
+    <script src="assets/js/auth-modal.js"></script>
+    <script src="assets/js/merch-carousel.js"></script>
+
+
+<script>
+$(function(){
+$('.navbar-toggle').click(function(){
+ var updateParCount = 0;
+ var updateParScroll = setInterval(function(){
+  $(window).trigger('resize').trigger('scroll');
+  updateParCount++;
+  if (updateParCount == 20) {
+   clearInterval(updateParScroll);
+  }
+ },20);
+});
+});
+</script>
+  </body>
+</html>
