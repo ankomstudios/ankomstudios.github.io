@@ -1,7 +1,13 @@
 {
   "name": "ankomstudios-github-io",
   "compatibility_date": "2026-08-30",
+  "main": "src/worker.js",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "SUPABASE_URL": "https://njtosjlucqvevymjxsqb.supabase.co",
+    "SITE_URL": "https://ankomstudios.com"
   }
 }

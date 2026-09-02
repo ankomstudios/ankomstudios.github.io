@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Download WannaSmile V0.9 for Windows, Linux, and Chrome.">
+    <meta name="description" content="Support Ankom Studios' work -- coming soon.">
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Download WannaSmile — Ankom Studios" />
-    <meta property="og:description" content="Download WannaSmile V0.9 for Windows, Linux, and Chrome." />
-    <meta property="og:url" content="https://ankomstudios.com/buy/">
+    <meta property="og:title" content="Donate — Ankom Studios" />
+    <meta property="og:description" content="Support Ankom Studios' work -- coming soon." />
+    <meta property="og:url" content="https://ankomstudios.com/donate/">
 
-    <title>Download WannaSmile | Ankom Studios</title>
+    <title>Donate | Ankom Studios</title>
     <link rel="shortcut icon" href="/assets/images/lightFav.png">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,7 +20,7 @@
     <link href="/assets/css/solid.min.css" rel="stylesheet">
     <link href="/assets/css/brands.min.css" rel="stylesheet">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/main.css?v=41" rel="stylesheet">
+    <link href="/assets/css/main.css?v=52" rel="stylesheet">
     <script>
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.classList.add('theme-dark');
@@ -44,10 +44,10 @@
             <li><a href="/support/"><i class="sprite sprite-support"></i>&nbsp;Support</a></li>
             <li><a href="https://blog.ankomstudios.com/"><i class="sprite sprite-blog"></i>&nbsp;News</a></li>
             <li><a href="/pages/yeezy-night-funkin/"><i class="sprite sprite-download"></i>&nbsp;YNF</a></li>
-            <li><button type="button" class="auth-nav-btn" id="authOpenBtn" data-auth-open>
-                  <i class="sprite sprite-user"></i>&nbsp;Sign Up / Log In</button>
-            </li>
+            <li id="authSignupItem"><a href="#" id="authSignupBtn" data-auth-open data-auth-view="signup"><i class="sprite sprite-user"></i>&nbsp;Sign Up</a></li>
           </ul>
+
+          <button type="button" class="nav-login-btn" id="authLoginBtn" data-auth-open data-auth-view="login">Log In</button>
         </div>
       </div>
     </div>
@@ -67,46 +67,32 @@
     <div class="paper-end paper-end-top"></div>
     <div id="content">
 
-    <h1 class="download-page-title">Download WannaSmile V0.9</h1>
-    <p class="download-page-subtitle">The 4Ever Update — 9 pages of web ports &amp; content, 75 assets per page. Pick your platform below.</p>
+    <div class="top-links">
+      <a class="top-link-btn" href="https://discord.gg/QhZ5tYsXMe" target="_blank" rel="noopener" aria-label="Join our Discord">
+        <i class="fab fa-discord"></i>
+      </a>
 
-    <div class="download-grid">
-
-      <div class="download-card" id="windows">
-        <img class="os-logo" src="/assets/images/windows-logo.png" alt="Windows">
-        <h2>Windows</h2>
-        <p class="download-meta">v0.9 &middot; .zip</p>
-        <button type="button" class="btn main-buy-button" data-download-file="downloads/wannasmile-v0.9-windows.zip">Download</button>
-        <p class="download-status"></p>
+      <div class="top-link-btn top-link-btn-static" aria-label="Users online">
+        <i class="fas fa-users"></i>
+        <span class="top-link-count" id="topLinkOnlineCount">&mdash;</span>
       </div>
 
-      <div class="download-card" id="linux">
-        <img class="os-logo" src="/assets/images/linux-logo.png" alt="Linux">
-        <h2>Linux</h2>
-        <p class="download-meta">v0.9 &middot; .tar.gz</p>
-        <button type="button" class="btn main-buy-button" data-download-file="downloads/wannasmile-v0.9-linux.tar.gz">Download</button>
-        <p class="download-status"></p>
-      </div>
-
-      <div class="download-card" id="chrome">
-        <i class="fab fa-chrome" style="font-size:56px; color:#000;" aria-hidden="true"></i>
-        <h2>Chrome</h2>
-        <p class="download-meta">v0.9 &middot; .zip (unpacked extension)</p>
-        <button type="button" class="btn main-buy-button" data-download-file="downloads/wannasmile-v0.9-chrome.zip">Download</button>
-        <p class="download-status"></p>
-      </div>
-
+      <a class="top-link-btn" href="https://www.youtube.com/@ankomstudios" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12" style="text-align:center; max-width:520px; margin:0 auto 60px;">
-          <p style="color:#8a8a8a; font-size:0.9em;">
-            Chrome build isn't on the Web Store yet — unzip it, then go to
-            <code>chrome://extensions</code>, enable Developer Mode, and choose
-            "Load unpacked".
-          </p>
-        </div>
+    <h1 class="download-page-title">Donate</h1>
+    <p class="download-page-subtitle">Every donation goes straight back into WannaSmile, Yeezy Night Funkin&rsquo;, and everything else we&rsquo;re building. Thank you for backing us.</p>
+
+    <div class="asset-carousel donate-total-box">
+      <div class="asset-carousel-header">
+        <span class="asset-carousel-label">Total Raised</span>
+      </div>
+      <hr class="asset-carousel-rule">
+      <div class="asset-carousel-body donate-total-body">
+        <span class="donate-total-amount" id="donationTotalAmount">$&mdash;</span>
+        <button type="button" class="donate-cta-btn" id="donateOpenBtn" data-donate-open>Donate to support AnkomStudios!</button>
       </div>
     </div>
 
@@ -224,19 +210,40 @@
       </div>
     </div>
 
+    <div class="auth-overlay" id="donateOverlay" data-donate-close hidden>
+      <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="donateModalTitle">
+        <button type="button" class="auth-close" data-donate-close aria-label="Close">&times;</button>
+        <h2 class="auth-title" id="donateModalTitle">Donate to Ankom Studios</h2>
+
+        <div class="donate-amount-grid">
+          <button type="button" class="donate-amount-btn" data-amount="5">$5</button>
+          <button type="button" class="donate-amount-btn" data-amount="10">$10</button>
+          <button type="button" class="donate-amount-btn" data-amount="25">$25</button>
+          <button type="button" class="donate-amount-btn" data-amount="50">$50</button>
+        </div>
+
+        <label for="donateCustomAmount" class="donate-modal-label">Or enter a custom amount (USD)</label>
+        <input type="number" id="donateCustomAmount" class="donate-custom-input" min="1" step="1" placeholder="e.g. 15">
+
+        <button type="button" class="auth-submit" id="donateSubmitBtn">Donate</button>
+        <p class="auth-status" id="donateStatus"></p>
+      </div>
+    </div>
+
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="/assets/js/supabase-client.js"></script>
     <script src="/assets/js/online-counter.js"></script>
+    <script src="/assets/js/donation-counter.js"></script>
 
     <script src="/assets/js/favicon-theme.js"></script>
     <script src="/assets/js/logo-tilt.js"></script>
     <script src="/assets/js/logo-hover-swap.js"></script>
     <script src="/assets/js/paper-parallax.js"></script>
     <script src="/assets/js/auth-modal.js"></script>
-    <script src="/assets/js/downloads.js"></script>
+    <script src="/assets/js/donate-modal.js"></script>
 
     <script>
       $(function(){

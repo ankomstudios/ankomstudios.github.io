@@ -21,9 +21,9 @@
 
     <link href="assets/css/fontawesome.min.css" rel="stylesheet">
     <link href="assets/css/solid.min.css" rel="stylesheet">
+    <link href="assets/css/brands.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/main.css?v=41" rel="stylesheet">
-    <link href="assets/css/temp-disable-nav.css" rel="stylesheet">
+    <link href="assets/css/main.css?v=52" rel="stylesheet">
     <script>
       // Set the theme class immediately (before paint) so the
       // paper-edge graphics don't flash the wrong color on load.
@@ -49,10 +49,11 @@
             <li><a href="https://community.ankomstudios.com/"><i class="sprite sprite-community"></i>&nbsp;Socials</a></li>
             <li><a href="/support/"><i class="sprite sprite-support"></i>&nbsp;Support</a></li>
             <li><a href="https://blog.ankomstudios.com/"><i class="sprite sprite-blog"></i>&nbsp;News</a></li>
-            <li><button type="button" class="auth-nav-btn" id="authOpenBtn" data-auth-open>
-                  <i class="sprite sprite-user"></i>&nbsp;Sign Up / Log In</button>
-            </li>
+            <li><a href="/pages/yeezy-night-funkin/"><i class="sprite sprite-download"></i>&nbsp;YNF</a></li>
+            <li id="authSignupItem"><a href="#" id="authSignupBtn" data-auth-open data-auth-view="signup"><i class="sprite sprite-user"></i>&nbsp;Sign Up</a></li>
           </ul>
+
+          <button type="button" class="nav-login-btn" id="authLoginBtn" data-auth-open data-auth-view="login">Log In</button>
         </div>
       </div>
     </div>
@@ -72,49 +73,215 @@
 <div class="paper-end paper-end-top"></div>
 <div id="content">
 
-<img
-  src="assets/images/text/VersionTrailerText.png"
-  alt="VersionTrailerText"
-  class="version-trailer-text"
-/>
+<div class="top-links">
+  <a class="top-link-btn" href="https://discord.gg/QhZ5tYsXMe" target="_blank" rel="noopener" aria-label="Join our Discord">
+    <i class="fab fa-discord"></i>
+  </a>
 
-<div class="version-previews">
-
-  <div class="version-preview">
-    <iframe
-      width="853"
-      height="480"
-      src="https://www.youtube.com/embed/CKHagS16WW0?si=TN1jc6oezFWU7R43"
-      title="WannaSmile V0.9 — The 4Ever Update"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Hidden for now — website still unfinished, no downloads ready yet.
-         Re-enable once builds are actually available. -->
-    <!--
-    <div class="version-buttons">
-      <a href="/buy/#windows" class="btn main-buy-button os-download-btn">
-        <img class="os-logo" src="assets/images/windows-logo.png" alt="Windows">
-        <span class="os-button-text">
-          <span class="os-name">Windows</span>
-          <span class="os-version">v0.9</span>
-        </span>
-      </a>
-
-      <a href="/buy/#linux" class="btn main-buy-button os-download-btn">
-        <img class="os-logo" src="assets/images/linux-logo.png" alt="Linux">
-        <span class="os-button-text">
-          <span class="os-name">Linux</span>
-          <span class="os-version">v0.9</span>
-        </span>
-      </a>
-    </div>
-    -->
+  <div class="top-link-btn top-link-btn-static" aria-label="Users online">
+    <i class="fas fa-users"></i>
+    <!-- Live count from assets/js/online-counter.js (Supabase realtime
+         presence) — starts at "—" until that first sync arrives. -->
+    <span class="top-link-count" id="topLinkOnlineCount">&mdash;</span>
   </div>
 
+  <a class="top-link-btn" href="https://www.youtube.com/@ankomstudios" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+    <i class="fab fa-youtube"></i>
+  </a>
 </div>
+
+<div class="asset-carousel-wrap" id="featuredCarousel">
+  <button type="button" class="asset-carousel-btn asset-carousel-prev" aria-label="Previous projects">
+    <img class="carousel-arrow-dark" src="assets/images/buttons/carousel-arrow-left-dark.png" alt="" draggable="false">
+    <img class="carousel-arrow-light" src="assets/images/buttons/carousel-arrow-left-light.png" alt="" draggable="false">
+  </button>
+
+  <div class="asset-carousel">
+    <div class="asset-carousel-header">
+      <span class="asset-carousel-label">Featured Projects</span>
+    </div>
+    <hr class="asset-carousel-rule">
+
+    <div class="asset-carousel-body">
+      <div class="asset-carousel-viewport">
+        <div class="asset-carousel-track">
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="featured-card-image-wrap">
+              <img class="featured-card-image" src="assets/images/placeholders/project-placeholder.png" alt="" loading="lazy">
+            </div>
+            <p class="featured-card-title">Coming Soon</p>
+            <div class="featured-card-meta">
+              <span class="featured-card-by">by Ankom Studios</span>
+              <span class="featured-card-price">TBA</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="asset-carousel-btn asset-carousel-next" aria-label="Next projects">
+    <img class="carousel-arrow-dark" src="assets/images/buttons/carousel-arrow-right-dark.png" alt="" draggable="false">
+    <img class="carousel-arrow-light" src="assets/images/buttons/carousel-arrow-right-light.png" alt="" draggable="false">
+  </button>
+</div>
+
+<!-- Updates & Changes: entries are loaded and appended into the empty
+     .asset-carousel-track below by assets/js/updates-loader.js, from
+     the markdown files in assets/data/updates/ (add a release by
+     dropping a .md file there and listing it in index.json — no HTML
+     editing needed). -->
+<div class="asset-carousel-wrap" id="updatesCarousel">
+  <button type="button" class="asset-carousel-btn asset-carousel-prev" aria-label="Previous update">
+    <img class="carousel-arrow-dark" src="assets/images/buttons/carousel-arrow-left-dark.png" alt="" draggable="false">
+    <img class="carousel-arrow-light" src="assets/images/buttons/carousel-arrow-left-light.png" alt="" draggable="false">
+  </button>
+
+  <div class="asset-carousel">
+    <div class="asset-carousel-header">
+      <span class="asset-carousel-label">Updates &amp; Changes</span>
+      <!-- Filled in by updates-loader.js with the currently-shown
+           entry's version, kept in sync as the arrows page through
+           entries — per the revision plan's top-right header badge. -->
+      <span class="asset-carousel-badge" id="updatesVersionBadge"></span>
+    </div>
+    <hr class="asset-carousel-rule">
+
+    <div class="asset-carousel-body">
+      <div class="asset-carousel-viewport">
+        <div class="asset-carousel-track"></div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="asset-carousel-btn asset-carousel-next" aria-label="Next update">
+    <img class="carousel-arrow-dark" src="assets/images/buttons/carousel-arrow-right-dark.png" alt="" draggable="false">
+    <img class="carousel-arrow-light" src="assets/images/buttons/carousel-arrow-right-light.png" alt="" draggable="false">
+  </button>
+</div>
+
+<!-- Hidden for now — website still unfinished, no downloads ready yet.
+     Re-enable once builds are actually available. -->
+<!--
+<div class="version-buttons">
+  <a href="/buy/#windows" class="btn main-buy-button os-download-btn">
+    <img class="os-logo" src="assets/images/windows-logo.png" alt="Windows">
+    <span class="os-button-text">
+      <span class="os-name">Windows</span>
+      <span class="os-version">v0.9</span>
+    </span>
+  </a>
+
+  <a href="/buy/#linux" class="btn main-buy-button os-download-btn">
+    <img class="os-logo" src="assets/images/linux-logo.png" alt="Linux">
+    <span class="os-button-text">
+      <span class="os-name">Linux</span>
+      <span class="os-version">v0.9</span>
+    </span>
+  </a>
+</div>
+-->
 
 <!-- Hidden for now — no domain live yet and no merch actually for sale.
      Re-enable once both are real. -->
@@ -321,10 +488,11 @@
 		<div class="col-xs-6 col-sm-4 col-md-2">
 		  <h4>Community</h4>
 		  <ul>
-			<li><a href="https://community.ankomstudios.org/"><i class="fab fa-discourse"></i> Aseprite Community</a>
+			<!-- Disabled for now: leftover Aseprite branding, community.ankomstudios.org isn't a live Ankom Studios domain. -->
+			<!-- <li><a href="https://community.ankomstudios.org/"><i class="fab fa-discourse"></i> Aseprite Community</a> -->
 			<li><a href="https://discord.gg/Yb2CeX8"><i class="fab fa-discord"></i> Discord Server</a>
 			<li><a href="https://steamcommunity.com/app/431730"><i class="fab fa-steam"></i> Steam Community</a>
-			<li><a href="https://www.reddit.com/r/ankomstudios/"><i class="fab fa-reddit"></i> /r/aseprite</a>
+			<li><a href="https://www.reddit.com/r/ankomstudios/"><i class="fab fa-reddit"></i> r/AnkomStudios</a>
 		  </ul>
 		</div>
 		<div class="col-xs-6 col-sm-4 col-md-2">
@@ -349,9 +517,9 @@
 		  <h4>Social</h4>
 		  <ul>
 			<li><a href="https://twitter.com/ankomstudios/"><i class="fab fa-twitter"></i> Twitter</a>
-			<li><a href="https://mastodon.art/@ankomstudios" rel="me"><i class="fab fa-mastodon"></i> Mastodon</a>
+			<li><a href="https://www.tiktok.com/@ankomstudios?is_from_webapp=1&amp;sender_device=pc"><svg class="footer-tiktok-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" focusable="false" style="vertical-align:-0.125em;"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg> TikTok</a>
 			<li><a href="https://www.facebook.com/ankomstudios"><i class="fab fa-facebook"></i> Facebook</a>
-			<li><a href="https://www.youtube.com/user/ankomstudios"><i class="fab fa-youtube"></i> YouTube</a>
+			<li><a href="https://www.youtube.com/@ankomstudios"><i class="fab fa-youtube"></i> YouTube</a>
 			<li><a href="https://www.instagram.com/ankomstudios/"><i class="fab fa-instagram"></i> Instagram</a>
 		  </ul>
 		</div>
@@ -380,10 +548,10 @@
         <div class="auth-col" id="authSignupView">
           <form id="authSignupForm" class="auth-form">
             <label for="authSignupEmail">email:</label>
-            <input type="email" id="authSignupEmail" name="email" autocomplete="email">
+            <input type="email" id="authSignupEmail" name="email" autocomplete="email" required>
 
             <label for="authSignupPassword">Strong Password:</label>
-            <input type="password" id="authSignupPassword" name="password" autocomplete="new-password">
+            <input type="password" id="authSignupPassword" name="password" autocomplete="new-password" required minlength="6">
 
             <button type="submit" class="auth-submit">Sign Up</button>
           </form>
@@ -393,11 +561,11 @@
         <div class="auth-col" id="authLoginView" hidden>
           <form id="authLoginForm" class="auth-form">
             <label for="authLoginEmail">email:</label>
-            <input type="email" id="authLoginEmail" name="email" autocomplete="email">
+            <input type="email" id="authLoginEmail" name="email" autocomplete="email" required>
 
             <label for="authLoginPassword">password:</label>
             <div class="auth-password-row">
-              <input type="password" id="authLoginPassword" name="password" autocomplete="current-password">
+              <input type="password" id="authLoginPassword" name="password" autocomplete="current-password" required>
               <button type="button" class="auth-eye-toggle" data-auth-toggle-pw="authLoginPassword" aria-label="Show password">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                   <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" fill="none" stroke="#000" stroke-width="1.6"/>
@@ -418,6 +586,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/online-counter.js"></script>
 
     <script src="assets/js/favicon-theme.js"></script>
     <script src="assets/js/logo-tilt.js"></script>
@@ -425,6 +594,10 @@
     <script src="assets/js/paper-parallax.js"></script>
     <script src="assets/js/auth-modal.js"></script>
     <script src="assets/js/merch-carousel.js"></script>
+    <script src="assets/js/asset-carousel.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+    <script src="assets/js/updates-loader.js"></script>
 
 
 <script>
