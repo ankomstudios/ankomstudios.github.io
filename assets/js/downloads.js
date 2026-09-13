@@ -1,18 +1,16 @@
-// Pulls build files through jsDelivr's GitHub CDN (fast, cached, CORS-enabled)
-// and saves them via a Blob instead of a plain <a href> — so clicking Download
-// stays on ankomstudios.github.io instead of bouncing out to github.com.
+// Pulls build files from the R2 bucket (raw.ankomstudios.com) and saves them
+// via a Blob instead of a plain <a href> — so clicking Download stays on
+// ankomstudios.github.io instead of bouncing out to another host.
 //
-// Files aren't uploaded yet. Once a build exists, drop it in this repo at the
-// path referenced by data-download-file (e.g. downloads/wannasmile-v0.9-windows.zip)
-// and tag/push — jsDelivr picks it up from the branch named below within
-// about 24h, or immediately if fetched with a specific commit/tag instead of
-// a branch name. See https://www.jsdelivr.com/documentation#id-github
+// Files aren't uploaded yet. Once a build exists, upload it to the R2 bucket
+// at the path referenced by data-download-file (e.g.
+// downloads/wannasmile-v0.9-windows.zip) via wrangler or rclone — see
+// CLAUDE.md — it's reachable immediately, no build/publish delay.
 (function () {
-  var GITHUB_REPO = 'ankomstudios/ankomstudios';
-  var BRANCH = 'main';
+  var CDN_BASE = 'https://raw.ankomstudios.com';
 
   function cdnUrl(path) {
-    return 'https://cdn.jsdelivr.net/gh/' + GITHUB_REPO + '@' + BRANCH + '/' + path;
+    return CDN_BASE + '/' + path;
   }
 
   document.querySelectorAll('[data-download-file]').forEach(function (btn) {

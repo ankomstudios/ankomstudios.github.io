@@ -2,3 +2,7 @@
 Screenshot*.png
 node_modules/
 .wrangler/
+
+# Media/build files belong in R2 (raw.ankomstudios.com), never git — see CLAUDE.md
+*.zip
+*.tar.gz
