@@ -4,11 +4,31 @@
 // everything else, so this doesn't change how the rest of the site is
 // served.
 //
-// Repo layout: index.html and assets/ sit at the repo root; every other
-// page (buy/, docs/, etc.) lives under system/ on disk. Public URLs are
-// unaffected: requests are rewritten to look inside system/ before
-// hitting ASSETS, except the root path and /assets/* which stay at the
-// root as-is.
+// Repo layout: index.html and assets/ (images/webfonts only) sit at the
+// repo root; everything else lives under system/ on disk —
+// system/pages/<name>/index.html for every page (including this one,
+// system/js/worker.js — excluded from the public asset upload via
+// .assetsignore), system/css, system/js, and system/data for what used
+// to be assets/css, assets/js, assets/data.
+//
+// Public URLs are unaffected by any of that reshuffling except /buy/,
+// which got renamed to /pages/wannasmile/ (a redirect below covers old
+// links) — every other request is rewritten to look inside system/
+// before hitting ASSETS:
+//   /                    -> unchanged (index.html stays at the root)
+//   /assets/css/*        -> /system/css/*
+//   /assets/js/*         -> /system/js/*
+//   /assets/data/*       -> /system/data/*
+//   /assets/images|webfonts/* -> unchanged (still served straight from
+//                          the root assets/ folder)
+//   /<page-name>/...      -> /system/pages/<page-name>/... for the
+//                          PAGE_NAMES below (every page that used to
+//                          live directly under system/<name>/)
+//   everything else (e.g. /pages/wannasmile/, /pages/about-blank/)
+//                        -> /system/... , same as before — these
+//                          already have "pages" baked into their own
+//                          public URL, so the plain prefix lines up
+//                          with system/pages/<name>/ on disk.
 //
 // Required Worker secrets (set with `wrangler secret put <NAME>`,
 // never committed to the repo or pasted in chat):
@@ -23,6 +43,11 @@
 //
 // Non-secret config lives in wrangler.jsonc's "vars" (SUPABASE_URL).
 
+const PAGE_NAMES = new Set([
+  'contributors', 'docs', 'donate', 'faq', 'news', 'privacy',
+  'quickref', 'roadmap', 'socials', 'support', 'terms', 'tutorial',
+]);
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -34,9 +59,25 @@ export default {
       return handleStripeWebhook(request, env);
     }
 
+    // Old WannaSmile download URL, renamed to /pages/wannasmile/ —
+    // redirect so existing bookmarks/links don't just break.
+    if (url.pathname === '/buy' || url.pathname === '/buy/') {
+      return Response.redirect(new URL('/pages/wannasmile/', url), 301);
+    }
+
     const isRoot = url.pathname === '/' || url.pathname === '/index.html';
-    if (!isRoot && !url.pathname.startsWith('/assets/')) {
-      url.pathname = '/system' + url.pathname;
+
+    if (!isRoot) {
+      if (url.pathname.startsWith('/assets/css/')) {
+        url.pathname = '/system/css/' + url.pathname.slice('/assets/css/'.length);
+      } else if (url.pathname.startsWith('/assets/js/')) {
+        url.pathname = '/system/js/' + url.pathname.slice('/assets/js/'.length);
+      } else if (url.pathname.startsWith('/assets/data/')) {
+        url.pathname = '/system/data/' + url.pathname.slice('/assets/data/'.length);
+      } else if (!url.pathname.startsWith('/assets/')) {
+        const firstSegment = url.pathname.split('/')[1];
+        url.pathname = (PAGE_NAMES.has(firstSegment) ? '/system/pages' : '/system') + url.pathname;
+      }
       request = new Request(url, request);
     }
 

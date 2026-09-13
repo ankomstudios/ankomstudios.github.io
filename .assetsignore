@@ -5,4 +5,4 @@
 wrangler.jsonc
 .assetsignore
 Screenshot*.png
-src
+system/js/worker.js

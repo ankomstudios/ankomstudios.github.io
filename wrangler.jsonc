@@ -1,7 +1,7 @@
 {
   "name": "ankomstudios-github-io",
   "compatibility_date": "2026-08-30",
-  "main": "system/src/worker.js",
+  "main": "system/js/worker.js",
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
