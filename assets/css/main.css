@@ -1628,7 +1628,13 @@ html.theme-dark .asset-carousel-btn .carousel-arrow-light {
   aspect-ratio: 16 / 10;
   border: 2px solid #000000;
   background-color: #ffffff;
+  background-size: cover;
+  background-position: center;
   box-sizing: border-box;
+}
+
+#project-wannasmile {
+  background-image: url('../images/projects/wannasmile-bg.png');
 }
 
 /* ===== Updates & Changes items =====
