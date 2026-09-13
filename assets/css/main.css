@@ -1625,6 +1625,7 @@ html.theme-dark .asset-carousel-btn .carousel-arrow-light {
 }
 
 .project-box {
+  display: block;
   aspect-ratio: 16 / 10;
   border: 2px solid #000000;
   background-color: #ffffff;
