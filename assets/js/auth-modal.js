@@ -4,8 +4,16 @@
   var overlay = document.getElementById('authOverlay');
   if (!overlay) return;
 
-  var openBtn = document.querySelector('[data-auth-open]');
+  var openBtns = Array.prototype.slice.call(document.querySelectorAll('[data-auth-open]'));
+  var signupItem = document.getElementById('authSignupItem');
+  var loginBtn = document.getElementById('authLoginBtn');
+  // Legacy combined "Sign Up / Log In" button — index.html has since
+  // split this into signupItem + loginBtn above, but every other page
+  // still carries the old single-button navbar markup, so keep it
+  // working there too instead of silently going stale.
+  var legacyBtn = document.getElementById('authOpenBtn');
   var lastFocused = null;
+  var loggedInEmail = null;
 
   var title = document.getElementById('authModalTitle');
   var views = {
@@ -29,7 +37,7 @@
     });
   });
 
-  function openModal() {
+  function openModal(view) {
     lastFocused = document.activeElement;
 
     // Lock background scroll without letting the page shift sideways:
@@ -42,7 +50,7 @@
     document.body.style.overflow = 'hidden';
 
     overlay.hidden = false;
-    showView('signup');
+    showView(view === 'login' ? 'login' : 'signup');
   }
 
   function closeModal() {
@@ -52,9 +60,50 @@
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
-  if (openBtn) {
-    openBtn.addEventListener('click', openModal);
+  // Reflect the current Supabase session on the nav: signed out shows
+  // both "Sign Up" (nav item) and "Log In" (nav button); signed in
+  // hides Sign Up (nothing to sign up for) and turns Log In into Log
+  // Out for that account.
+  function updateNavButtons(session) {
+    loggedInEmail = session && session.user ? session.user.email : null;
+    if (signupItem) signupItem.hidden = !!loggedInEmail;
+    if (loginBtn) {
+      loginBtn.textContent = loggedInEmail ? 'Log Out' : 'Log In';
+      if (loggedInEmail) {
+        loginBtn.title = 'Signed in as ' + loggedInEmail;
+      } else {
+        loginBtn.removeAttribute('title');
+      }
+    }
+    if (legacyBtn) {
+      if (loggedInEmail) {
+        legacyBtn.innerHTML = '<i class="sprite sprite-user"></i>&nbsp;Log Out';
+        legacyBtn.title = 'Signed in as ' + loggedInEmail;
+      } else {
+        legacyBtn.innerHTML = '<i class="sprite sprite-user"></i>&nbsp;Sign Up / Log In';
+        legacyBtn.removeAttribute('title');
+      }
+    }
   }
+
+  if (window.supabaseClient) {
+    window.supabaseClient.auth.getSession().then(function (result) {
+      updateNavButtons(result.data && result.data.session);
+    });
+    window.supabaseClient.auth.onAuthStateChange(function (event, session) {
+      updateNavButtons(session);
+    });
+  }
+
+  openBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (loggedInEmail) {
+        window.supabaseClient.auth.signOut();
+      } else {
+        openModal(btn.getAttribute('data-auth-view'));
+      }
+    });
+  });
 
   overlay.addEventListener('click', function (e) {
     if (e.target.hasAttribute('data-auth-close')) closeModal();
@@ -98,7 +147,11 @@
 
       var call = isLogin
         ? window.supabaseClient.auth.signInWithPassword({ email: email, password: password })
-        : window.supabaseClient.auth.signUp({ email: email, password: password });
+        : window.supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: { emailRedirectTo: window.location.origin },
+          });
 
       call.then(function (result) {
         if (result.error) {

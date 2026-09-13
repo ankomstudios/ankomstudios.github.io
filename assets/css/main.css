@@ -220,7 +220,13 @@ h3 {
 }
 
 .navbar-default .navbar-collapse {
-  display: flex;
+  /* !important to win over Bootstrap's own .navbar-collapse.collapse
+     { display:block!important } at the desktop breakpoint — harmless
+     before now since .navbar-nav (the <ul>) is independently flex and
+     was the collapse's only child, but .nav-login-btn as a second,
+     sibling child needs the collapse itself laid out as a row to sit
+     at the far right via justify-content. */
+  display: flex !important;
   align-items: center;
   justify-content: space-between;
   flex: 1;
@@ -253,11 +259,44 @@ h3 {
  line-height: 1.2;
  color: #ffffff;
  cursor: pointer;
+ /* Same fix as .navbar-nav>li>a above (wrap-proofing + icon/text
+    centering) — this legacy combined button still ships "Sign Up /
+    Log In" on every page besides index.html. */
+ white-space: nowrap;
+ display: flex;
+ align-items: center;
 }
 .auth-nav-btn:hover,
 .auth-nav-btn:focus {
  color: #ffffff;
  outline: none;
+}
+
+/* Log In: a dark CTA button separate from the nav item list (Sign Up
+   stays a regular nav link) — .navbar-default .navbar-collapse's
+   justify-content:space-between pushes it to the far right. */
+.nav-login-btn {
+  flex: 0 0 auto;
+  padding: 8px 18px;
+  margin: 0 15px;
+  border: 0;
+  background-color: #000000;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.nav-login-btn:hover,
+.nav-login-btn:focus {
+  background-color: #2e3234;
+  color: #ffffff;
+  outline: none;
+}
+@media (max-width: 767px) {
+  .nav-login-btn {
+    margin: 8px 15px 16px;
+  }
 }
 #buy {
  width:100%;
@@ -318,6 +357,19 @@ h3 {
   line-height: 1.2;
   padding-top: 12px;
   padding-bottom: 12px;
+  /* white-space:nowrap matters most for "Sign Up" — the only two-word
+     label here. .navbar-nav has more items than room for at some
+     widths, and default flex-shrink lets every link compress a
+     little; a link whose text can wrap (a plain space, unlike the
+     other items' unbreakable single words or the &nbsp; before it)
+     was the one that actually did, doubling its own line count and
+     making that <li> taller than its siblings under
+     .navbar-nav's align-items:center. Flexing the anchor itself
+     additionally makes icon and text center independently, so a link
+     with a .sprite icon lines up with Contribute's plain text too. */
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-default .navbar-nav>.active>a,
@@ -1349,6 +1401,421 @@ dialog::backdrop {
 /* Don't alter your existing button styling */
 .version-buttons .main-buy-button {
   display: inline-flex;
+}
+
+
+
+/* ===== Top link buttons =====
+   Discord / online-count / YouTube row, centered above the Featured
+   Projects box (still inside #content, the page's papered container —
+   not the fixed navbar). Deliberately dark regardless of the site's
+   light/dark theme toggle, unlike the carousel arrows. The middle one
+   is a static (non-link) counter — #topLinkOnlineCount is the hook to
+   wire up to a Supabase realtime presence channel later; it just shows
+   a placeholder dash until then. */
+.top-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.top-link-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+a.top-link-btn:hover,
+a.top-link-btn:focus {
+  background-color: #2e3234;
+}
+
+.top-link-btn-static {
+  cursor: default;
+}
+
+.top-link-count {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background-color: #60ba60;
+  color: #ffffff;
+  font-size: 0.62em;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  box-sizing: border-box;
+  border: 2px solid #ffffff;
+}
+
+/* ===== Asset-browser carousel frame =====
+   Shared shell for the home page's "windowed" content browsers
+   (Featured Projects, Updates & Changes, and any future ones) — styled
+   as an old-school asset browser window rather than a soft modern card
+   grid, per the notebook mock: one outlined box nested inside another
+   ({[()()()]} — outer frame, header+rule, then the individual items),
+   label top-left instead of centered, an <hr> between the header and
+   the content, and the prev/next arrows sitting outside the box, flush
+   against its left/right edges (align-items:stretch on the wrap makes
+   them match the box's height automatically) rather than inside its
+   padding. The track slides one item at a time via those arrows —
+   item styling (.featured-card etc.) is defined per section below.
+   Arrow art comes in light/dark pairs (assets/images/buttons/) and
+   swaps with the site's theme-dark class, same convention as
+   --paper-invert above. Behavior lives in assets/js/asset-carousel.js. */
+
+.asset-carousel-wrap {
+  display: flex;
+  align-items: stretch;
+  width: min(1100px, 100%);
+  margin: 0 auto 40px;
+}
+
+.asset-carousel {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 3px solid #000000;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.asset-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
+.asset-carousel-label {
+  display: block;
+  font-family: 'Pirata One', 'Source Sans Pro', serif;
+  font-size: 1.3em;
+  text-align: left;
+  color: #000000;
+}
+
+/* Top-right header badge (e.g. the current entry's version in Updates
+   & Changes) — empty and invisible until a section fills it in. */
+.asset-carousel-badge {
+  flex: 0 0 auto;
+  border: 1px solid #000000;
+  padding: 1px 6px;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: #2e3234;
+}
+.asset-carousel-badge:empty {
+  display: none;
+}
+
+.asset-carousel-rule {
+  margin: 0;
+  border: none;
+  border-top: 2px solid #000000;
+}
+
+.asset-carousel-body {
+  padding: 16px;
+}
+
+.asset-carousel-viewport {
+  overflow: hidden;
+}
+
+.asset-carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+}
+
+/* Outside the box, not inside its padding — flush against the border
+   with no gap, and stretched (via align-items:stretch on the wrap) to
+   match the box's height so it reads as attached to that edge. */
+.asset-carousel-btn {
+  flex: 0 0 auto;
+  width: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.asset-carousel-btn img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.asset-carousel-btn .carousel-arrow-light {
+  display: none;
+}
+html.theme-dark .asset-carousel-btn .carousel-arrow-dark {
+  display: none;
+}
+html.theme-dark .asset-carousel-btn .carousel-arrow-light {
+  display: block;
+}
+
+@media (max-width: 560px) {
+  .asset-carousel-btn { width: 32px; }
+}
+
+/* ===== Featured Projects items =====
+   Replaces the old version-trailer iframe on the home page. Currently
+   all placeholders — swap featured-card-image src / title / by / price
+   once real listings exist. flex-shrink:0 keeps every card at its full
+   basis width (1/5, 1/3, or full viewport width per the breakpoints
+   below) so extra cards overflow the clipped viewport instead of
+   squeezing to fit — that overflow is what asset-carousel.js slides
+   through. */
+.featured-card {
+  flex: 0 0 calc(100% / 5);
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0 8px;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .featured-card { flex-basis: calc(100% / 3); }
+}
+@media (max-width: 560px) {
+  .featured-card { flex-basis: 100%; }
+}
+
+.featured-card-image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.featured-card-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.featured-card-title {
+  margin: 8px 0 0;
+  font-weight: 700;
+  text-align: left;
+  color: #000000;
+}
+
+.featured-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.featured-card-by {
+  font-size: 0.85em;
+  color: #8a8a8a;
+}
+
+.featured-card-price {
+  flex: 0 0 auto;
+  border: 1px solid #000000;
+  padding: 1px 6px;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: #2e3234;
+}
+
+/* ===== Updates & Changes items =====
+   One entry fills the whole viewport at a time (unlike the Featured
+   Projects grid) — each .update-card is built and appended by
+   assets/js/updates-loader.js from a markdown file in
+   assets/data/updates/, so there's no static markup for these in
+   index.html. Reuses the shared .asset-carousel-* frame above. */
+.update-card {
+  flex: 0 0 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0 4px;
+  text-align: left;
+}
+
+.update-card-title {
+  margin: 0 0 6px;
+  font-family: 'Pirata One', 'Source Sans Pro', serif;
+  font-size: 1.3em;
+  color: #000000;
+}
+
+.update-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.update-card-by {
+  font-size: 0.85em;
+  color: #8a8a8a;
+}
+
+.update-card-date {
+  font-size: 0.85em;
+  color: #8a8a8a;
+}
+
+.update-card-body {
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #2e3234;
+}
+
+.update-card-body p {
+  margin: 0 0 10px;
+}
+
+.update-card-body ul,
+.update-card-body ol {
+  margin: 0 0 10px 20px;
+  padding: 0;
+}
+
+.update-card-body a {
+  color: #2e3234;
+  text-decoration: underline;
+}
+
+.update-card-body strong {
+  color: #000000;
+}
+
+
+
+/* ===== Donate page (/donate/) =====
+   Same page shell as index.html (nav, header, top-links, footer, auth
+   modal) — only #content differs. The "total raised" stat reuses the
+   .asset-carousel-* box frame standalone (no -wrap/arrows, it's not a
+   carousel). The donate modal reuses .auth-overlay/.auth-modal/
+   .auth-close/.auth-title/.auth-submit/.auth-status wholesale — same
+   flat black-border look, just a different overlay id
+   (#donateOverlay) and its own amount-picker markup below. Behavior
+   lives in assets/js/donation-counter.js (reads + live-updates the
+   total from Supabase) and assets/js/donate-modal.js (open/close +
+   amount selection + kicks off Checkout). */
+
+.donate-total-box {
+  width: min(560px, 100%);
+  margin: 0 auto 40px;
+}
+
+.donate-total-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 16px;
+}
+
+.donate-total-amount {
+  font-family: 'Pirata One', 'Source Sans Pro', serif;
+  font-size: 3em;
+  font-weight: 700;
+  color: #000000;
+}
+
+.donate-cta-btn {
+  border: none;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  font-weight: 700;
+  cursor: pointer;
+}
+.donate-cta-btn:hover,
+.donate-cta-btn:focus {
+  background-color: #2e3234;
+  outline: none;
+}
+
+.donate-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0 16px;
+}
+
+.donate-amount-btn {
+  border: 3px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 4px;
+  font-weight: 700;
+  font-size: 1em;
+  cursor: pointer;
+}
+.donate-amount-btn:hover,
+.donate-amount-btn:focus {
+  background-color: #f0f0f0;
+  outline: none;
+}
+.donate-amount-btn.is-selected {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.donate-modal-label {
+  display: block;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 700;
+  font-size: 0.95em;
+  color: #000000;
+  margin: 0 0 6px;
+}
+
+.donate-custom-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  border: 3px solid #000000;
+  border-radius: 0;
+  background-color: #ffffff;
+  color: #000000;
+}
+.donate-custom-input:focus {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .donate-amount-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 
