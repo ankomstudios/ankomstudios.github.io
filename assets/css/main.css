@@ -1606,74 +1606,193 @@ html.theme-dark .asset-carousel-btn .carousel-arrow-light {
   .asset-carousel-btn { width: 32px; }
 }
 
-/* ===== Featured Projects items =====
-   Replaces the old version-trailer iframe on the home page. Currently
-   all placeholders — swap featured-card-image src / title / by / price
-   once real listings exist. flex-shrink:0 keeps every card at its full
-   basis width (1/5, 1/3, or full viewport width per the breakpoints
-   below) so extra cards overflow the clipped viewport instead of
-   squeezing to fit — that overflow is what asset-carousel.js slides
-   through. */
-.featured-card {
-  flex: 0 0 calc(100% / 5);
-  flex-shrink: 0;
+/* ===== Featured Projects =====
+   Desktop-first: a wide static grid (no sliding/arrows — there are
+   only ever a few real projects, so everything fits at once) sized
+   off the viewport instead of the shared .asset-carousel-wrap's
+   min(1100px, 100%) cap, since this section is meant to read as a
+   wide "PC build" showcase rather than a narrow mobile-width strip.
+   Still nests inside the standard .asset-carousel box/header/rule
+   frame (see donate/index.html for another consumer of that frame)
+   for visual consistency with the rest of the site. */
+.projects-wrap {
+  width: min(88vw, 1760px);
+  margin: 0 auto 40px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1000px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000000;
+  background-color: #ffffff;
   box-sizing: border-box;
-  padding: 0 8px;
-  text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-@media (max-width: 900px) {
-  .featured-card { flex-basis: calc(100% / 3); }
-}
-@media (max-width: 560px) {
-  .featured-card { flex-basis: 100%; }
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0 #000000;
 }
 
-.featured-card-image-wrap {
-  width: 100%;
-  aspect-ratio: 4 / 3;
+.project-card-media {
+  aspect-ratio: 16 / 10;
+  border-bottom: 2px solid #000000;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
-  border: 2px solid #000000;
-  box-sizing: border-box;
-  padding: 10px;
 }
 
-.featured-card-image {
-  max-width: 100%;
-  max-height: 100%;
+.project-card-media-ynf {
+  background-color: #fdf6e9;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.project-card-media-ynf img {
+  max-width: 80%;
+  max-height: 80%;
   object-fit: contain;
 }
 
-.featured-card-title {
-  margin: 8px 0 0;
-  font-weight: 700;
+/* Shared "browser window" mock used by the WannaSmile (URL asset
+   library) and about:blank (literal blank tab) cards — no real
+   screenshots exist yet for either, and the browser-chrome motif
+   doubles as a visual pun for both. */
+.mock-browser {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #e9e4d8;
+}
+
+.mock-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background-color: #d8d2c2;
+  border-bottom: 2px solid #000000;
+  flex: 0 0 auto;
+}
+
+.mock-browser-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #000000;
+  opacity: 0.25;
+}
+
+.mock-browser-url {
+  margin-left: 8px;
+  flex: 1;
+  min-width: 0;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 0.75em;
+  color: #2e3234;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mock-browser-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 14px;
+  align-content: start;
+}
+
+.mock-asset-tile {
+  aspect-ratio: 1;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.mock-browser-body-blank {
+  display: block;
+  background-color: #ffffff;
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 18px 20px;
+}
+
+.project-card-title {
+  margin: 0 0 8px;
+  font-family: 'Pirata One', 'Source Sans Pro', serif;
+  font-size: 1.4em;
+  font-weight: 400;
   text-align: left;
   color: #000000;
 }
 
-.featured-card-meta {
+.project-card-desc {
+  flex: 1;
+  margin: 0 0 16px;
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #2e3234;
+}
+
+.project-card-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 10px;
 }
 
-.featured-card-by {
-  font-size: 0.85em;
-  color: #8a8a8a;
-}
-
-.featured-card-price {
+.project-card-status {
   flex: 0 0 auto;
   border: 1px solid #000000;
-  padding: 1px 6px;
-  font-size: 0.8em;
+  padding: 1px 8px;
+  font-size: 0.75em;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: #2e3234;
+}
+
+.project-card-status-pending {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.project-card-link {
+  font-weight: 700;
+  color: #000000;
+  text-decoration: none;
+  border-bottom: 2px solid #000000;
+}
+
+.project-card-link:hover {
+  color: #2e3234;
+}
+
+.project-card-link-disabled {
+  color: #8a8a8a;
+  border-bottom: 2px solid #cccccc;
+  pointer-events: none;
 }
 
 /* ===== Updates & Changes items =====
