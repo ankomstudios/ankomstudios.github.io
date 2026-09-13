@@ -419,16 +419,60 @@ h3 {
 }
 .navbar-default .navbar-nav>li.social-buttons a{
  color:#fff;
- color:rgba(255,255,255,0.5);
  font-size:24px;
  float:left;
  padding:4px;
+ position:relative;
 }
 .navbar-default .navbar-nav>li.social-buttons a:hover{
  color:#fff;
 }
 .discord-button{
  top:0.1em;
+}
+
+/* Nav icon tooltips: dark box below the icon, white text, with a small
+   upward-pointing triangle bridging the gap back up to the icon.
+   Content is pulled straight from each link's aria-label so there's
+   only one place (the HTML) that names each icon. */
+.navbar-default .navbar-nav>li.social-buttons a::after,
+.navbar-default .navbar-nav>li.social-buttons a::before {
+ position:absolute;
+ left:50%;
+ top:100%;
+ opacity:0;
+ visibility:hidden;
+ pointer-events:none;
+ transition:opacity 0.15s ease, transform 0.15s ease;
+ z-index:1000;
+}
+.navbar-default .navbar-nav>li.social-buttons a::after {
+ content:attr(aria-label);
+ transform:translate(-50%, 4px);
+ margin-top:20px;
+ background:#1a1a1a;
+ color:#fff;
+ font-size:12px;
+ font-weight:normal;
+ line-height:1.4;
+ white-space:nowrap;
+ padding:6px 10px;
+ border-radius:4px;
+}
+.navbar-default .navbar-nav>li.social-buttons a::before {
+ content:'';
+ transform:translate(-50%, 4px);
+ margin-top:8px;
+ border:6px solid transparent;
+ border-bottom-color:#1a1a1a;
+}
+.navbar-default .navbar-nav>li.social-buttons a:hover::after,
+.navbar-default .navbar-nav>li.social-buttons a:focus::after,
+.navbar-default .navbar-nav>li.social-buttons a:hover::before,
+.navbar-default .navbar-nav>li.social-buttons a:focus::before {
+ opacity:1;
+ visibility:visible;
+ transform:translate(-50%, 0);
 }
 
 .navbar-default .navbar-nav>li.social-buttons{
