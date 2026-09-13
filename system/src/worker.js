@@ -4,11 +4,11 @@
 // everything else, so this doesn't change how the rest of the site is
 // served.
 //
-// Repo layout: only assets/ sits next to this Worker's source at the
-// repo root — every page (index.html, buy/, docs/, etc.) lives under
-// system/ on disk. Public URLs are unaffected: requests are rewritten
-// to look inside system/ before hitting ASSETS, except /assets/* which
-// stays at the root as-is.
+// Repo layout: index.html and assets/ sit at the repo root; every other
+// page (buy/, docs/, etc.) lives under system/ on disk. Public URLs are
+// unaffected: requests are rewritten to look inside system/ before
+// hitting ASSETS, except the root path and /assets/* which stay at the
+// root as-is.
 //
 // Required Worker secrets (set with `wrangler secret put <NAME>`,
 // never committed to the repo or pasted in chat):
@@ -34,7 +34,8 @@ export default {
       return handleStripeWebhook(request, env);
     }
 
-    if (!url.pathname.startsWith('/assets/')) {
+    const isRoot = url.pathname === '/' || url.pathname === '/index.html';
+    if (!isRoot && !url.pathname.startsWith('/assets/')) {
       url.pathname = '/system' + url.pathname;
       request = new Request(url, request);
     }
