@@ -3,7 +3,7 @@
   "compatibility_date": "2026-08-30",
   "main": "system/js/worker.js",
   "assets": {
-    "directory": ".",
+    "directory": "domain",
     "binding": "ASSETS"
   },
   "vars": {

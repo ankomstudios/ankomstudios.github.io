@@ -1,8 +1,0 @@
-.git
-.github
-.wrangler
-.gitignore
-wrangler.jsonc
-.assetsignore
-Screenshot*.png
-system/js/worker.js

@@ -77,10 +77,10 @@
     }
     if (legacyBtn) {
       if (loggedInEmail) {
-        legacyBtn.innerHTML = '<i class="sprite sprite-user"></i>&nbsp;Log Out';
+        legacyBtn.innerHTML = '<i class="fas fa-user"></i>&nbsp;Log Out';
         legacyBtn.title = 'Signed in as ' + loggedInEmail;
       } else {
-        legacyBtn.innerHTML = '<i class="sprite sprite-user"></i>&nbsp;Sign Up / Log In';
+        legacyBtn.innerHTML = '<i class="fas fa-user"></i>&nbsp;Sign Up / Log In';
         legacyBtn.removeAttribute('title');
       }
     }
