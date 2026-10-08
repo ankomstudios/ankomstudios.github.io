@@ -1,13 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <title>Fake World Tour 2029</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#120c0a">
+<title>My Beautiful Dark Twisted Fantasy | Fake World Tour 2029</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Fake World Tour 2029</h1>
-  <p>School project. Fictional content.</p>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M10.6 9.2L5 3.6 3.6 5l5.6 5.6zM14.5 4l2 2L3.6 18.9l1.4 1.4L17.9 7.4l2.1 2.1V4zM14.8 13.4l-1.4 1.4 3.1 3.1-2 2H20v-5.5l-2.1 2.1z"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2z"/></symbol>
+</svg>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand">Fake World Tour 2029</div>
+    <nav>
+      <a href="#" class="on">Home</a>
+      <label class="search"><span class="sr">Search tracks</span><input id="q" type="search" placeholder="Search tracks" autocomplete="off"></label>
+    </nav>
+    <section class="lib">
+      <h2>Your Library</h2>
+      <div class="lib-item"><div class="cover mini"></div><div><b>My Beautiful Dark Twisted Fantasy</b><small>Album by Kanye West</small></div></div>
+    </section>
+    <p class="fine">Fan-made school project. Fictional, and not affiliated with any artist or label.</p>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div class="cover big"></div>
+      <div class="hero-text">
+        <small>Album</small>
+        <h1>My Beautiful Dark Twisted Fantasy</h1>
+        <p>Kanye West, 2010, 13 songs</p>
+      </div>
+    </header>
+    <div class="actions">
+      <button id="heroPlay" class="play-big" aria-label="Play album"><svg><use href="#i-play"/></svg></button>
+    </div>
+    <div class="list" id="tracks" role="list"></div>
+  </main>
+</div>
+
+<footer class="bar">
+  <div class="now">
+    <div class="cover sm"></div>
+    <div class="meta"><div id="title">Pick a track to start</div><div id="artist"></div></div>
+  </div>
+  <div class="center">
+    <div class="ctrls">
+      <button id="shuf" aria-label="Shuffle"><svg><use href="#i-shuffle"/></svg></button>
+      <button id="prev" aria-label="Previous"><svg><use href="#i-prev"/></svg></button>
+      <button id="pp" class="pp" aria-label="Play"><svg><use href="#i-play"/></svg></button>
+      <button id="next" aria-label="Next"><svg><use href="#i-next"/></svg></button>
+      <button id="rep" aria-label="Repeat"><svg><use href="#i-repeat"/></svg></button>
+    </div>
+    <div class="seek"><span id="cur">0:00</span><input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek"><span id="dur">0:00</span></div>
+  </div>
+  <div class="right">
+    <canvas id="viz" width="80" height="28" aria-hidden="true"></canvas>
+    <input type="range" id="vol" min="0" max="100" value="80" aria-label="Volume">
+  </div>
+</footer>
+<div id="toast" role="status"></div>
+<script src="script.js"></script>
 </body>
 </html>
